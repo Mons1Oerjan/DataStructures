@@ -1,172 +1,163 @@
-//Binary Tree Class
-public class BinaryTree<T> 
-{
+/**
+ * Generic Binary Tree data structure
+ */
+public class BinaryTree<T> {
 	private T data;
 	private BinaryTree<T> parent;
 	private BinaryTree<T> left;
 	private BinaryTree<T> right;
-	
-	public BinaryTree()
-	{
+
+	public BinaryTree() {
 		parent = left = right = null;
 		data = null;
 	}
-	
-	
-	public void makeRoot(T data)
-	{
-		if (!isEmpty())
-		{
+
+	public void makeRoot(T data) {
+		if (!isEmpty()) {
 			System.out.println("Can't make root. Already exists");
-		}
-		else
+		} else {
 			this.data = data;
+		}
 	}
-	
-	public void setData(T data)
-	{
+
+	public void setData(T data) {
 		this.data = data;
 	}
-	
-	public void setLeft(BinaryTree<T> tree)
-	{
+
+	public void setLeft(BinaryTree<T> tree) {
 		left = tree;
 	}
-	public void setRight(BinaryTree<T> tree)
-	{
+
+	public void setRight(BinaryTree<T> tree) {
 		right = tree;
 	}
-	public void setParent(BinaryTree<T> tree)
-	{
+
+	public void setParent(BinaryTree<T> tree) {
 		parent = tree;
 	}
-	
-	public T getData()
-	{
+
+	public T getData() {
 		return data;
 	}
-	public BinaryTree<T> getParent()
-	{
+
+	public BinaryTree<T> getParent() {
 		return parent;
 	}
-	public BinaryTree<T> getLeft()
-	{
+
+	public BinaryTree<T> getLeft() {
 		return left;
 	}
-	public BinaryTree<T> getRight()
-	{
+
+	public BinaryTree<T> getRight() {
 		return right;
 	}
-	
-	
-	public void attachLeft(BinaryTree<T> tree)
-	{
-		if (tree==null) return;
-		else if (left!=null || tree.getParent()!=null)
-		{
+
+	public void attachLeft(BinaryTree<T> tree) {
+		if (tree == null) {
+			return;
+		} else if (left != null || tree.getParent() != null) {
 			System.out.println("Can't attach");
 			return;
-		}
-		else
-		{
-			
-				tree.setParent(this);
-				this.setLeft(tree);
+		} else {
+			tree.setParent(this);
+			this.setLeft(tree);
 		}
 	}
-	
-	public void attachRight(BinaryTree<T> tree)
-	{
-		if (tree==null) return;
-		else if (right!=null || tree.getParent()!=null)
-		{
+
+	public void attachRight(BinaryTree<T> tree) {
+		if (tree == null) {
+			return;
+		} else if (right != null || tree.getParent() != null) {
 			System.out.println("Can't attach");
 			return;
-		}
-		else
-		{
-	
-				tree.setParent(this);
-				this.setRight(tree);
+		} else {
+			tree.setParent(this);
+			this.setRight(tree);
 		}
 	}
-	
-	public BinaryTree<T> detachLeft()
-	{
-		if (this.isEmpty()) return null;
+
+	public BinaryTree<T> detachLeft() {
+		if (this.isEmpty()) {
+			return null;
+		}
+
 		BinaryTree<T> retLeft = left;
 		left = null;
-		if (retLeft!=null) retLeft.setParent(null);
+
+		if (retLeft != null) {
+			retLeft.setParent(null);
+		}
+
 		return retLeft;
 	}
-	public BinaryTree<T> detachRight()
-	{
-		if (this.isEmpty()) return null;
+
+	public BinaryTree<T> detachRight() {
+		if (this.isEmpty()) {
+			return null;
+		}
+
 		BinaryTree<T> retRight = right;
 		right =null;
-		if (retRight!=null) retRight.setParent(null);
+
+		if (retRight!=null) {
+			retRight.setParent(null);
+		}
+
 		return retRight;
 	}
-	public boolean isEmpty()
-	{
-		if (data == null)
+
+	public boolean isEmpty() {
+		if (data == null) {
 			return true;
-		else
-			return false;
+		}
+
+		return false;
 	}
-	public void clear()
-	{
-		left = right = parent =null;
+	public void clear() {
+		left = right = parent = null;
 		data = null;
 	}
-	
-	public BinaryTree<T> root()
-	{
-		if (parent == null)
+
+	public BinaryTree<T> root() {
+		if (parent == null) {
 			return this;
-		else
-		{
-			BinaryTree<T> next = parent;
-			while (next.getParent()!=null)
-				next = next.getParent();
-			return next;
 		}
+
+		BinaryTree<T> next = parent;
+
+		while (next.getParent() != null) {
+			next = next.getParent();
+		}
+
+		return next;
 	}
-	
-	public static <T> void preorder(BinaryTree<T> t)
-	{
-		if (t!=null)
-		{
+
+	public static <T> void preorder(BinaryTree<T> t) {
+		if (t != null) {
 			System.out.print(t.getData()+"\t");
-			preorder(t.getLeft());	
+			preorder(t.getLeft());
 			preorder(t.getRight());
 		}
 	}
-	
-	public static <T> void inorder(BinaryTree<T> t)
-	{
-		if (t!=null)
-		{
+
+	public static <T> void inorder(BinaryTree<T> t) {
+		if (t != null) {
 			inorder(t.getLeft());
 			System.out.print(t.getData() + "\t");
 			inorder(t.getRight());
 		}
 	}
-	
-	public static <T> void postorder(BinaryTree<T> t)
-	{
-		if (t!=null)
-		{
+
+	public static <T> void postorder(BinaryTree<T> t) {
+		if (t != null) {
 			postorder(t.getLeft());
 			postorder(t.getRight());
 			System.out.print(t.getData() + "\t");
 		}
 	}
-	
-	
-	//A simple demo program
-	public static void main(String[] args)
-	{
+
+	// Simple demo program
+	public static void main(String[] args) {
 		BinaryTree<String> tree = new BinaryTree<String>();
 		BinaryTree<String> A = new BinaryTree<String>();
 		BinaryTree<String> B = new BinaryTree<String>();
@@ -188,8 +179,5 @@ public class BinaryTree<T>
 		System.out.print("Postorder:\t");
 		postorder(A);
 		System.out.println();
-		
 	}
-		
-	
 }
